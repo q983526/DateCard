@@ -12,7 +12,6 @@ import com.example.admin.datecard.db.FriendDao;
 import com.example.admin.datecard.http.FriendResponse;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private UserAdapter adapter;
     private List<UserBean> list;
-    private Callback.Cancelable getUsers;
     private LoadDialog mLoadDialog;
     private FriendDao friendDao;
     @Override
@@ -96,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (getUsers!=null&&!getUsers.isCancelled()){
-            getUsers.cancel();
-        }
+        OkHttpUtils.getInstance().cancelTag(this);
     }
 }
